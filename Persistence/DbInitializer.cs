@@ -10,7 +10,8 @@ public class DbInitializer
 
         List<Activity> activities =
         [
-            new() {
+            new()
+            {
                 Title = "Past Activity 1",
                 Date = DateTime.Now.AddMonths(-2),
                 Description = "Activity 2 months ago",
@@ -21,7 +22,8 @@ public class DbInitializer
                 Longitude = -0.1256611057818921,
             },
 
-            new() {
+            new()
+            {
                 Title = "Past Activity 2",
                 Date = DateTime.Now.AddMonths(-1),
                 Description = "Activity 1 month ago",
@@ -32,7 +34,8 @@ public class DbInitializer
                 Longitude = 2.33802768704666
             },
 
-            new() {
+            new()
+            {
                 Title = "Future Activity 1",
                 Date = DateTime.Now.AddMonths(1),
                 Description = "Activity 1 month in future",
@@ -43,7 +46,8 @@ public class DbInitializer
                 Longitude = -0.17600190725447445
             },
 
-            new() {
+            new()
+            {
                 Title = "Future Activity 2",
                 Date = DateTime.Now.AddMonths(2),
                 Description = "Activity 2 months in future",
