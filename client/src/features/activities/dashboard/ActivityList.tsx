@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import ActivityCard from "./ActivityCard";
-import { useActivities } from "../../../lib/types/hooks/useActivities";
+import { useActivities } from "../../../lib/hooks/useActivities";
 
 export default function ActivityList() {
   const { activities, isPending } = useActivities();

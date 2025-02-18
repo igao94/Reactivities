@@ -1,5 +1,5 @@
 import { Grid2, Typography } from "@mui/material";
-import { useActivities } from "../../../lib/types/hooks/useActivities";
+import { useActivities } from "../../../lib/hooks/useActivities";
 import { useParams } from "react-router";
 import ActivityDetailsHeader from "./ActivityDetailsHeader";
 import ActivityDetailsInfo from "./ActivityDetailsInfo";
