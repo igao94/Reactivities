@@ -8,6 +8,7 @@ public class Result<T>
     public int StatusCode { get; set; }
 
     public static Result<T> Success(T value) => new() { IsSuccess = true, Value = value };
+
     public static Result<T> Failure(string error, int statusCode) => new()
     {
         IsSuccess = false,
