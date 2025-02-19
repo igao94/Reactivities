@@ -1,18 +1,25 @@
-﻿using AutoMapper;
+﻿using Application.Core;
+using AutoMapper;
 using MediatR;
 using Persistence;
 
 namespace Application.Activities.Commands.EditActivity;
 
-public class EditActivityHandler(AppDbContext context, IMapper mapper) : IRequestHandler<EditActivityCommand>
+public class EditActivityHandler(AppDbContext context, IMapper mapper)
+    : IRequestHandler<EditActivityCommand, Result<Unit>>
 {
-    public async Task Handle(EditActivityCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Unit>> Handle(EditActivityCommand request, CancellationToken cancellationToken)
     {
-        var activity = await context.Activities.FindAsync([request.Activity.Id], cancellationToken) 
-            ?? throw new Exception("Activity not found.");
+        var activity = await context.Activities.FindAsync([request.ActivityDto.Id], cancellationToken);
 
-        mapper.Map(request.Activity, activity);
+        if (activity is null) return Result<Unit>.Failure("Activity not found.", 404);
 
-        await context.SaveChangesAsync(cancellationToken);
+        mapper.Map(request.ActivityDto, activity);
+
+        var result = await context.SaveChangesAsync(cancellationToken) > 0;
+
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure("Failed to update an activity.", 400);
     }
 }
