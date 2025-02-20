@@ -5,6 +5,7 @@ using Application.Activities.DTOs;
 using Application.Activities.Queries.GetActivityById;
 using Application.Activities.Queries.GetAllActivities;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
