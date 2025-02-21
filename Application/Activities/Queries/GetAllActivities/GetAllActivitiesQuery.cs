@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
+﻿using Application.Activities.DTOs;
 using MediatR;
 
 namespace Application.Activities.Queries.GetAllActivities;
 
-public class GetAllActivitiesQuery : IRequest<List<Activity>>
+public class GetAllActivitiesQuery : IRequest<List<ActivityDto>>
 {
 
 }

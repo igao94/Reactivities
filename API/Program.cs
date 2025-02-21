@@ -10,6 +10,9 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Application.Interfaces;
+using Infrastructure.Security;
+using Infrastructure.Security.IsHost;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +41,8 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
 
+builder.Services.AddScoped<IUserAccessor, UserAccessor>();
+
 builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
@@ -51,6 +56,15 @@ builder.Services.AddSingleton(new JsonSerializerOptions
 {
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("IsActivityHost", policy =>
+    {
+        policy.Requirements.Add(new IsHostRequirement());
+    });
+
+
+builder.Services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
 
 var app = builder.Build();
 
