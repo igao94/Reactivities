@@ -22,6 +22,11 @@ public class MappingProfiles : Profile
         CreateMap<ActivityAttendee, UserProfile>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
             .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.User.DisplayName))
-            .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.User.Bio));
+            .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.User.Bio))
+            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.User.ImageUrl));
+
+        CreateMap<Photo, PhotoDto>();
+
+        CreateMap<User, UserProfile>();
     }
 }

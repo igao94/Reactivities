@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Application.Interfaces;
 using Infrastructure.Security;
 using Infrastructure.Security.IsHost;
+using Infrastructure.Photos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
 
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 
+builder.Services.AddScoped<IPhotoService, PhotoService>();
+
 builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
@@ -65,6 +68,8 @@ builder.Services.AddAuthorizationBuilder()
 
 
 builder.Services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
+
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 var app = builder.Build();
 
