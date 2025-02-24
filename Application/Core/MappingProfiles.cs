@@ -28,5 +28,9 @@ public class MappingProfiles : Profile
         CreateMap<Photo, PhotoDto>();
 
         CreateMap<User, UserProfile>();
+
+        CreateMap<Comment, CommentDto>()
+            .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.User.DisplayName))
+            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.User.ImageUrl));
     }
 }

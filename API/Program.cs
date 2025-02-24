@@ -14,6 +14,7 @@ using Application.Interfaces;
 using Infrastructure.Security;
 using Infrastructure.Security.IsHost;
 using Infrastructure.Photos;
+using API.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ builder.Services.AddMediatR(x =>
     x.RegisterServicesFromAssemblyContaining<GetAllActivitiesQuery>();
     x.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
+
+builder.Services.AddSignalR();
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
@@ -88,6 +91,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapGroup("api").MapIdentityApi<User>();
+
+app.MapHub<CommentHub>("/comments");
 
 using var scope = app.Services.CreateScope();
 
