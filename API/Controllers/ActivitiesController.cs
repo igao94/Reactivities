@@ -5,6 +5,7 @@ using Application.Activities.Commands.UpdateAttendance;
 using Application.Activities.DTOs;
 using Application.Activities.Queries.GetActivityById;
 using Application.Activities.Queries.GetAllActivities;
+using Application.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +14,9 @@ namespace API.Controllers;
 public class ActivitiesController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<List<ActivityDto>>> GetActivities()
+    public async Task<ActionResult<PagedList<ActivityDto, DateTime?>>> GetActivities(DateTime? cursor)
     {
-        return await Mediator.Send(new GetAllActivitiesQuery());
+        return HandleResult(await Mediator.Send(new GetAllActivitiesQuery { Cursor = cursor }));
     }
 
     [HttpGet("{id}")]
