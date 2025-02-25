@@ -1,8 +1,10 @@
 ﻿using Application.Profiles.Commands.AddPhoto;
 using Application.Profiles.Commands.DeletePhoto;
 using Application.Profiles.Commands.EditProfile;
+using Application.Profiles.Commands.FollowToggle;
 using Application.Profiles.Commands.SetMainPhoto;
 using Application.Profiles.DTOs;
+using Application.Profiles.Queries.GetFollowings;
 using Application.Profiles.Queries.GetProfile;
 using Application.Profiles.Queries.GetProfilePhotos;
 using Microsoft.AspNetCore.Mvc;
@@ -45,5 +47,21 @@ public class ProfilesController : BaseApiController
     public async Task<ActionResult> EditProfile(EditProfileCommand command)
     {
         return HandleResult(await Mediator.Send(command));
+    }
+
+    [HttpPost("{userId}/follow")]
+    public async Task<ActionResult> FollowToggle(string userId)
+    {
+        return HandleResult(await Mediator.Send(new FollowToggleCommand { TargetUserId = userId }));
+    }
+
+    [HttpGet("{userId}/follow-list")]
+    public async Task<ActionResult<List<UserProfile>>> GetFollowings(string userId, string predicate)
+    {
+        return HandleResult(await Mediator.Send(new GetFollowingsQuery
+        {
+            UserId = userId,
+            Predicate = predicate
+        }));
     }
 }

@@ -9,6 +9,8 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
+        string? currentUserId = null;
+
         CreateMap<CreateActivityDto, Activity>();
 
         CreateMap<EditActivityDto, Activity>();
@@ -23,11 +25,19 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
             .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.User.DisplayName))
             .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.User.Bio))
-            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.User.ImageUrl));
+            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.User.ImageUrl))
+            .ForMember(dest => dest.FollowersCount, opt => opt.MapFrom(src => src.User.Followers.Count))
+            .ForMember(dest => dest.FollowingCount, opt => opt.MapFrom(src => src.User.Followings.Count))
+            .ForMember(dest => dest.Following, opt => opt.MapFrom(src => src.User.Followers
+                .Any(f => f.Observer.Id == currentUserId)));
 
         CreateMap<Photo, PhotoDto>();
 
-        CreateMap<User, UserProfile>();
+        CreateMap<User, UserProfile>()
+            .ForMember(dest => dest.FollowersCount, opt => opt.MapFrom(src => src.Followers.Count))
+            .ForMember(dest => dest.FollowingCount, opt => opt.MapFrom(src => src.Followings.Count))
+            .ForMember(dest => dest.Following, opt => opt.MapFrom(src => src.Followers
+                .Any(f => f.Observer.Id == currentUserId)));
 
         CreateMap<Comment, CommentDto>()
             .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.User.DisplayName))
