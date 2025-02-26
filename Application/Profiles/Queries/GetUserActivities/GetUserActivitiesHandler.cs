@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Profiles.Queries.GetUserActivity;
+namespace Application.Profiles.Queries.GetUserActivities;
 
 public class GetUserActivitiesHandler(AppDbContext context,
     IMapper mapper) : IRequestHandler<GetUserActivitiesQuery, Result<List<UserActivityDto>>>

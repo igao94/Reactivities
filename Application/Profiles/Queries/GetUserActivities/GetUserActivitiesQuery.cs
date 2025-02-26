@@ -2,7 +2,7 @@
 using Application.Profiles.DTOs;
 using MediatR;
 
-namespace Application.Profiles.Queries.GetUserActivity;
+namespace Application.Profiles.Queries.GetUserActivities;
 
 public class GetUserActivitiesQuery : IRequest<Result<List<UserActivityDto>>>
 {

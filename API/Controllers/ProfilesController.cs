@@ -7,7 +7,7 @@ using Application.Profiles.DTOs;
 using Application.Profiles.Queries.GetFollowings;
 using Application.Profiles.Queries.GetProfile;
 using Application.Profiles.Queries.GetProfilePhotos;
-using Application.Profiles.Queries.GetUserActivity;
+using Application.Profiles.Queries.GetUserActivities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
