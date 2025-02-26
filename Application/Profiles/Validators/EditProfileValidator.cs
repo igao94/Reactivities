@@ -1,7 +1,7 @@
 ﻿using Application.Profiles.Commands.EditProfile;
 using FluentValidation;
 
-namespace Application.Profiles.Vailidators;
+namespace Application.Profiles.Validators;
 
 public class EditProfileValidator : AbstractValidator<EditProfileCommand>
 {

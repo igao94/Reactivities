@@ -7,6 +7,7 @@ using Application.Profiles.DTOs;
 using Application.Profiles.Queries.GetFollowings;
 using Application.Profiles.Queries.GetProfile;
 using Application.Profiles.Queries.GetProfilePhotos;
+using Application.Profiles.Queries.GetUserActivity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -62,6 +63,16 @@ public class ProfilesController : BaseApiController
         {
             UserId = userId,
             Predicate = predicate
+        }));
+    }
+
+    [HttpGet("{userId}/activities")]
+    public async Task<ActionResult<List<UserActivityDto>>> GetUserActivity(string userId, string filter)
+    {
+        return HandleResult(await Mediator.Send(new GetUserActivitiesQuery
+        {
+            UserId = userId,
+            Filter = filter
         }));
     }
 }
