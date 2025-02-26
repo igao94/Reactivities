@@ -3,6 +3,7 @@ using Application.Activities.Commands.DeleteActivity;
 using Application.Activities.Commands.EditActivity;
 using Application.Activities.Commands.UpdateAttendance;
 using Application.Activities.DTOs;
+using Application.Activities.Queries;
 using Application.Activities.Queries.GetActivityById;
 using Application.Activities.Queries.GetAllActivities;
 using Application.Core;
@@ -14,9 +15,10 @@ namespace API.Controllers;
 public class ActivitiesController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<PagedList<ActivityDto, DateTime?>>> GetActivities(DateTime? cursor)
+    public async Task<ActionResult<PagedList<ActivityDto, DateTime?>>> GetActivities
+        ([FromQuery] ActivityParams activityParams)
     {
-        return HandleResult(await Mediator.Send(new GetAllActivitiesQuery { Cursor = cursor }));
+        return HandleResult(await Mediator.Send(new GetAllActivitiesQuery { ActivityParams = activityParams }));
     }
 
     [HttpGet("{id}")]
