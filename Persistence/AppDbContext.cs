@@ -24,12 +24,12 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(op
             x.HasOne(aa => aa.User)
                 .WithMany(u => u.Activities)
                 .HasForeignKey(aa => aa.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             x.HasOne(aa => aa.Activity)
                 .WithMany(a => a.Attendees)
                 .HasForeignKey(aa => aa.ActivityId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<UserFollowing>(x =>
@@ -39,7 +39,7 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(op
             x.HasOne(uf => uf.Observer)
                 .WithMany(u => u.Followings)
                 .HasForeignKey(uf => uf.ObserverId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             x.HasOne(uf => uf.Target)
                 .WithMany(u => u.Followers)
