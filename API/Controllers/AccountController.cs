@@ -85,6 +85,21 @@ public class AccountController(SignInManager<User> signInManager,
         return NoContent();
     }
 
+    [HttpPost("change-password")]
+    public async Task<ActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+    {
+        var user = await signInManager.UserManager.GetUserAsync(User);
+
+        if (user is null) return Unauthorized();
+
+        var result = await signInManager.UserManager
+            .ChangePasswordAsync(user, changePasswordDto.CurrentPassword, changePasswordDto.NewPassword);
+
+        if (!result.Succeeded) return BadRequest(result.Errors.First().Description);
+
+        return Ok();
+    }
+
     private async Task SendConfirmationEmailAsync(User user, string email)
     {
         var code = await signInManager.UserManager.GenerateEmailConfirmationTokenAsync(user);
