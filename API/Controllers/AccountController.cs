@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
-using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 namespace API.Controllers;
